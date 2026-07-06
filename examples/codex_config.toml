@@ -1,0 +1,4 @@
+[mcp_servers.socialdatax-weibo]
+enabled = true
+url = "https://mcp.socialdatax.com/weibo/mcp"
+bearer_token_env_var = "SOCIALDATAX_API_KEY"

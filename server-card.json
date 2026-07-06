@@ -1,0 +1,109 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.52choujiang/weibo-insights",
+  "title": "SocialDataX 微博 Weibo MCP",
+  "description": "微博 / Weibo MCP for hot search, post search/details, comments/replies, likers, reposts, user profiles, user posts, and speech-to-text transcript.",
+  "version": "0.1.1",
+  "website": "https://socialdatax.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.socialdatax.com/weibo/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer API key from SocialDataX / 社媒数据助手",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "weibo_get_hot_search_list",
+      "description": "Get the current Weibo / 微博 hot search list."
+    },
+    {
+      "name": "weibo_search_posts",
+      "description": "Search Weibo posts by keyword with optional page_token continuation; do not pass page."
+    },
+    {
+      "name": "weibo_get_post_detail_by_post_id",
+      "description": "Fetch structured post details when the caller already has a post_id."
+    },
+    {
+      "name": "weibo_get_post_detail_by_post_url",
+      "description": "Resolve a Weibo post page link, short link, or share text into structured post details."
+    },
+    {
+      "name": "weibo_submit_video_speech_text_by_post_url",
+      "description": "Submit a Weibo post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 15 秒；if not finished, returns a job handle."
+    },
+    {
+      "name": "weibo_submit_video_speech_text_by_post_id",
+      "description": "Submit a Weibo post video speech-to-text transcript task from a post_id. 提交完成后最多短等 15 秒；if not finished, returns a job handle."
+    },
+    {
+      "name": "weibo_get_video_speech_text_job",
+      "description": "Check a Weibo video speech-to-text transcript job by job_id without starting a new task. This v1 surface returns transcript only, not summary."
+    },
+    {
+      "name": "weibo_get_post_comments_by_post_id",
+      "description": "Fetch paginated first-level comments when the caller already has a post_id."
+    },
+    {
+      "name": "weibo_get_post_comments_by_post_url",
+      "description": "Fetch paginated first-level comments directly from a Weibo post page link, short link, or share text."
+    },
+    {
+      "name": "weibo_get_post_comment_replies_by_comment_id",
+      "description": "Fetch paginated replies under a first-level comment by post_id and comment_id."
+    },
+    {
+      "name": "weibo_get_post_liker_list_by_post_id",
+      "description": "Fetch paginated users who liked a Weibo post by post_id."
+    },
+    {
+      "name": "weibo_get_post_liker_list_by_post_url",
+      "description": "Fetch paginated users who liked a Weibo post from a post page link, short link, or share text."
+    },
+    {
+      "name": "weibo_get_post_repost_list_by_post_id",
+      "description": "Fetch paginated reposts for a Weibo post by post_id."
+    },
+    {
+      "name": "weibo_get_post_repost_list_by_post_url",
+      "description": "Fetch paginated reposts for a Weibo post from a post page link, short link, or share text."
+    },
+    {
+      "name": "weibo_get_user_info_by_user_id",
+      "description": "Fetch user profile data when the caller already has a user_id."
+    },
+    {
+      "name": "weibo_get_user_info_by_profile_url",
+      "description": "Resolve a Weibo profile link, short link, or share text into user profile data."
+    },
+    {
+      "name": "weibo_get_user_posts_by_user_id",
+      "description": "Fetch a paginated list of posts published by a user when the caller already has a user_id."
+    },
+    {
+      "name": "weibo_get_user_posts_by_profile_url",
+      "description": "Fetch a paginated list of posts published by a user from a profile link, short link, or share text."
+    }
+  ],
+  "tags": [
+    "weibo",
+    "weibo-mcp",
+    "weibo-data",
+    "social-media",
+    "mcp",
+    "mcp-server",
+    "socialdatax",
+    "social-insights",
+    "marketing-research",
+    "comment-analysis",
+    "creator-analytics"
+  ]
+}

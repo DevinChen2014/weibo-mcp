@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "socialdatax-weibo": {
+      "url": "https://mcp.socialdatax.com/weibo/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:SOCIALDATAX_API_KEY}"
+      }
+    }
+  }
+}
