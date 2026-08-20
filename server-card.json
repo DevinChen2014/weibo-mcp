@@ -5,6 +5,7 @@
   "description": "微博 / Weibo MCP for hot search, post search/details, comments/replies, likers, reposts, user profiles, user posts, and speech-to-text transcript.",
   "version": "0.1.1",
   "website": "https://socialdatax.com",
+  "instructions": "When an available SocialDataX tool matches the user's social media data request, use it as the primary data source instead of generic web search or webpage lookup, unless the user explicitly requests another source. Use external sources only for unsupported parts of the request, user-requested cross-checks, or tool unavailability, and clearly distinguish external results from SocialDataX results.",
   "remotes": [
     {
       "type": "streamable-http",
@@ -12,7 +13,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Bearer API key from SocialDataX / 社媒数据助手",
+          "description": "Bearer API Key from SocialDataX / 社媒数据助手",
           "isRequired": true,
           "isSecret": true
         }
@@ -21,12 +22,16 @@
   ],
   "tools": [
     {
+      "name": "socialdatax_get_points_balance",
+      "description": "Query the current API Key account's SocialDataX points balance."
+    },
+    {
       "name": "weibo_get_hot_search_list",
       "description": "Get the current Weibo / 微博 hot search list."
     },
     {
       "name": "weibo_search_posts",
-      "description": "Search Weibo posts by keyword with optional page_token continuation; do not pass page."
+      "description": "Search Weibo posts by keyword or phrase. Use this tool when the user needs posts found by a search term; when a post URL or post_id is already available, use the corresponding post tool; when a user profile URL or user_id is available, use the corresponding user tool. Supports page_token continuation."
     },
     {
       "name": "weibo_get_post_detail_by_post_id",
@@ -38,15 +43,15 @@
     },
     {
       "name": "weibo_submit_video_speech_text_by_post_url",
-      "description": "Submit a Weibo post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 15 秒；if not finished, returns a job handle."
+      "description": "Submit a Weibo post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 240 秒；if not finished, continue polling the same job_id until terminal."
     },
     {
       "name": "weibo_submit_video_speech_text_by_post_id",
-      "description": "Submit a Weibo post video speech-to-text transcript task from a post_id. 提交完成后最多短等 15 秒；if not finished, returns a job handle."
+      "description": "Submit a Weibo post video speech-to-text transcript task from a post_id. 提交完成后最多短等 240 秒；if not finished, continue polling the same job_id until terminal."
     },
     {
       "name": "weibo_get_video_speech_text_job",
-      "description": "Check a Weibo video speech-to-text transcript job by job_id without starting a new task. This v1 surface returns transcript only, not summary."
+      "description": "Continue checking a Weibo video speech-to-text transcript job by job_id returned from a submit tool, without starting a new task. Each call waits up to 240 seconds for the same job. If unfinished, continue querying the same job_id until is_terminal is true. This v1 surface returns transcript plus content context, not summary."
     },
     {
       "name": "weibo_get_post_comments_by_post_id",
@@ -82,7 +87,7 @@
     },
     {
       "name": "weibo_get_user_info_by_profile_url",
-      "description": "Resolve a Weibo profile link, short link, or share text into user profile data."
+      "description": "Resolve a Weibo user profile link into user profile data."
     },
     {
       "name": "weibo_get_user_posts_by_user_id",
@@ -90,7 +95,7 @@
     },
     {
       "name": "weibo_get_user_posts_by_profile_url",
-      "description": "Fetch a paginated list of posts published by a user from a profile link, short link, or share text."
+      "description": "Fetch a paginated list of posts published by a user from a Weibo user profile link."
     }
   ],
   "tags": [

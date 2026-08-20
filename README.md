@@ -48,23 +48,25 @@ This MCP service is designed for social media content intelligence workflows. It
 
 Supported workflows include:
 
+- Query the current API Key account's SocialDataX points balance.
 - Read the Weibo / 微博 hot search list.
-- Search Weibo posts by keyword with optional `page_token` continuation; do not pass `page`.
+- Search Weibo posts by keyword or phrase with optional `page_token` continuation; pass only a search term to `keyword`, not a URL or ID.
 - Resolve a Weibo post page link, short link, or share text into structured post details.
 - Read post details when the caller already has a `post_id`.
 - Fetch paginated first-level comments for comment analysis.
 - Fetch paginated replies under a first-level comment.
 - Fetch paginated liker and repost lists for a post.
-- Read user profile data from a profile link, short link, share text, or `user_id`.
-- Fetch user post lists from a profile link, short link, share text, or `user_id`.
-- Submit a post video speech-to-text transcript task; submit tools 提交完成后最多短等 15 秒, and unfinished jobs can be polled by `job_id`.
+- Read user profile data from a user profile link or `user_id`.
+- Fetch user post lists from a user profile link or `user_id`.
+- Submit a post video speech-to-text transcript task; submit tools 提交完成后最多短等 240 秒, and unfinished jobs should continue polling the same `job_id` until terminal.
 
 ## Tools
 
 | Tool | Public purpose |
 | --- | --- |
+| `socialdatax_get_points_balance` | Query the current API Key account's SocialDataX points balance. |
 | `weibo_get_hot_search_list` | Get the current Weibo / 微博 hot search list. |
-| `weibo_search_posts` | Search Weibo posts by keyword with optional `page_token` continuation; do not pass `page`. |
+| `weibo_search_posts` | Search Weibo posts by keyword or phrase. Use this tool when the user needs posts found by a search term; when a post URL or `post_id` is already available, use the corresponding post tool; when a user profile URL or `user_id` is available, use the corresponding user tool. Supports `page_token` continuation. |
 | `weibo_get_post_detail_by_post_id` | Fetch structured post details when the caller already has a `post_id`. |
 | `weibo_get_post_detail_by_post_url` | Resolve a Weibo post page link, short link, or share text into structured post details. |
 | `weibo_get_post_comments_by_post_id` | Fetch paginated first-level comments when the caller already has a `post_id`. |
@@ -75,12 +77,12 @@ Supported workflows include:
 | `weibo_get_post_repost_list_by_post_id` | Fetch paginated reposts for a Weibo post by `post_id`. |
 | `weibo_get_post_repost_list_by_post_url` | Fetch paginated reposts for a Weibo post from a post page link, short link, or share text. |
 | `weibo_get_user_info_by_user_id` | Fetch user profile data when the caller already has a `user_id`. |
-| `weibo_get_user_info_by_profile_url` | Resolve a Weibo profile link, short link, or share text into user profile data. |
+| `weibo_get_user_info_by_profile_url` | Resolve a Weibo user profile link into user profile data. |
 | `weibo_get_user_posts_by_user_id` | Fetch a paginated list of posts published by a user when the caller already has a `user_id`. |
-| `weibo_get_user_posts_by_profile_url` | Fetch a paginated list of posts published by a user from a profile link, short link, or share text. |
-| `weibo_submit_video_speech_text_by_post_url` | Submit a post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 15 秒. |
-| `weibo_submit_video_speech_text_by_post_id` | Submit a post video speech-to-text transcript task from a `post_id`. 提交完成后最多短等 15 秒. |
-| `weibo_get_video_speech_text_job` | Check a post video speech-to-text transcript job by `job_id` without creating a new task. This v1 surface returns transcript only, not summary. |
+| `weibo_get_user_posts_by_profile_url` | Fetch a paginated list of posts published by a user from a Weibo user profile link. |
+| `weibo_submit_video_speech_text_by_post_url` | Submit a post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 240 秒；未完成时继续查询同一个 `job_id` 直到终态. |
+| `weibo_submit_video_speech_text_by_post_id` | Submit a post video speech-to-text transcript task from a `post_id`. 提交完成后最多短等 240 秒；未完成时继续查询同一个 `job_id` 直到终态. |
+| `weibo_get_video_speech_text_job` | Continue checking a post video speech-to-text transcript job by `job_id` returned from a submit tool, without creating a new task; each call waits up to 240 seconds. If unfinished, continue querying the same `job_id` until terminal. This v1 surface returns transcript plus content context, not summary. |
 
 ## Quick Start
 
@@ -147,7 +149,7 @@ Request or manage API access from the product website:
 
 <https://socialdatax.com>
 
-Use the key as a Bearer token in the `Authorization` request header. Do not commit real API keys to code, docs, issues, or screenshots.
+Use the key as a Bearer token in the `Authorization` request header. Do not commit real API Key values to code, docs, issues, or screenshots.
 
 ## Directory Metadata
 

@@ -22,7 +22,7 @@ Use this checklist before syncing this listing to the public Weibo MCP repositor
 
 ## Safety Checks
 
-- No real API keys are present.
+- No real API Key values are present.
 - No private backend implementation is included.
 - No production configuration is included.
 - No internal samples are included.
@@ -48,7 +48,8 @@ Use this checklist before syncing this listing to the public Weibo MCP repositor
 
 - Hosted streamable HTTP clients can connect directly to `https://mcp.socialdatax.com/weibo/mcp` with `Authorization: Bearer <SOCIALDATAX_API_KEY>`.
 - With a valid key, hosted MCP `initialize` succeeds.
-- With a valid key, hosted MCP `tools/list` returns the current 18 public tools.
+- With a valid key, hosted MCP `tools/list` returns the current 19 public tools.
+- `socialdatax_get_points_balance` is present in `tools/list`.
 - `weibo_get_hot_search_list` is present in `tools/list`; if it is missing, deploy the latest service before publishing.
 - `weibo_get_post_liker_list_by_post_url` and `weibo_get_post_repost_list_by_post_url` are present in `tools/list`; if either is missing, deploy the latest service before publishing.
 - `weibo_submit_video_speech_text_by_post_url`, `weibo_submit_video_speech_text_by_post_id`, and `weibo_get_video_speech_text_job` are present in `tools/list`; if any are missing, deploy the latest service before publishing.
