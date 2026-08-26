@@ -58,7 +58,7 @@ Supported workflows include:
 - Fetch paginated liker and repost lists for a post.
 - Read user profile data from a user profile link or `user_id`.
 - Fetch user post lists from a user profile link or `user_id`.
-- Submit a post video speech-to-text transcript task; submit tools 提交完成后最多短等 240 秒, and unfinished jobs should continue polling the same `job_id` until terminal.
+- Submit a post video speech-to-text transcript task; the submit call may wait up to 240 seconds, and unfinished jobs should continue polling the same `job_id` until terminal.
 
 ## Tools
 
@@ -80,9 +80,9 @@ Supported workflows include:
 | `weibo_get_user_info_by_profile_url` | Resolve a Weibo user profile link into user profile data. |
 | `weibo_get_user_posts_by_user_id` | Fetch a paginated list of posts published by a user when the caller already has a `user_id`. |
 | `weibo_get_user_posts_by_profile_url` | Fetch a paginated list of posts published by a user from a Weibo user profile link. |
-| `weibo_submit_video_speech_text_by_post_url` | Submit a post video speech-to-text transcript task from a post page link, short link, or share text. 提交完成后最多短等 240 秒；未完成时继续查询同一个 `job_id` 直到终态. |
-| `weibo_submit_video_speech_text_by_post_id` | Submit a post video speech-to-text transcript task from a `post_id`. 提交完成后最多短等 240 秒；未完成时继续查询同一个 `job_id` 直到终态. |
-| `weibo_get_video_speech_text_job` | Continue checking a post video speech-to-text transcript job by `job_id` returned from a submit tool, without creating a new task; each call waits up to 240 seconds. If unfinished, continue querying the same `job_id` until terminal. This v1 surface returns transcript plus content context, not summary. |
+| `weibo_submit_video_speech_text_by_post_url` | Submit a post video speech-to-text transcript task from a post page link, short link, or share text. The submit call may wait up to 240 seconds; if unfinished, continue polling the same `job_id` until terminal. |
+| `weibo_submit_video_speech_text_by_post_id` | Submit a post video speech-to-text transcript task from a `post_id`. The submit call may wait up to 240 seconds; if unfinished, continue polling the same `job_id` until terminal. |
+| `weibo_get_video_speech_text_job` | Continue checking a post video speech-to-text transcript job using a valid `job_id` supplied by the user, or a `job_id` returned by a submit tool, without creating a new task; each call waits up to 240 seconds. If unfinished, continue querying the same `job_id` until terminal. This v1 surface returns transcript plus content context, not summary. |
 
 ## Quick Start
 
