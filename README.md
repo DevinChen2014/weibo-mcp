@@ -77,6 +77,8 @@ Supported workflows include:
 | --- | --- |
 | `socialdatax_get_points_balance` | Query the current API Key account's SocialDataX points balance / 积分余额、剩余积分或点数. |
 | `weibo_get_hot_search_list` | Get the current Weibo / 微博 hot search list. |
+| `weibo_search_suggestions` | Get keyword search suggestions. Returns suggested text, not posts or user details; no pagination. |
+| `weibo_search_users` | Search users by keyword with `page_token` continuation. When a user ID or profile URL is already available, use the corresponding user profile tool. |
 | `weibo_search_posts` | Search Weibo posts by keyword or phrase. Use this tool when the user needs posts found by a search term; when a post URL or `post_id` is already available, use the corresponding post tool; when a user profile URL or `user_id` is available, use the corresponding user tool. Supports `page_token` continuation. |
 | `weibo_get_post_detail_by_post_id` | Fetch structured post details when the caller already has a `post_id`. |
 | `weibo_get_post_detail_by_post_url` | Resolve a Weibo post page link, short link, or share text into structured post details. |
