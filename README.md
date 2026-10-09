@@ -10,6 +10,16 @@ If you are looking for a Weibo MCP or 微博 MCP for social media research workf
 
 The business implementation is privately hosted. This repository exposes only the public connection surface for social media content intelligence workflows.
 
+<!-- release-status:start -->
+## Recorded release status
+
+- Local metadata: `0.1.3` with 21 tracked tools. Local metadata alone does not establish publication.
+- Hosted production: `0.1.3` with 21 tools; recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
+- Official MCP Registry: `0.1.3` (`active`); recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
+- Registry evidence: [version-specific Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/com.52choujiang%2Fweibo-insights/versions/0.1.3).
+- These are recorded observations, not a fresh live check. Public GitHub, npm, and other distribution channels require their own verification.
+<!-- release-status:end -->
+
 ## Search Aliases
 
 Common search phrases for this MCP service:
@@ -36,7 +46,6 @@ Common search phrases for this MCP service:
 - Website and API Key access: <https://socialdatax.com/ai?from=github>
 - Registry name: `com.52choujiang/weibo-insights`
 - Future registry name: `com.socialdatax/weibo-insights`
-- Current public capability version: `0.1.1`
 
 ## Platform MCP
 
@@ -48,7 +57,9 @@ This MCP service is designed for social media content intelligence workflows. It
 
 Supported workflows include:
 
-- Query the current API Key account's SocialDataX points balance.
+- Query the current API Key account's SocialDataX points balance / 积分余额、剩余积分或点数.
+- Search users with `weibo_search_users(keyword, page_token)`; reuse `user_id` or `profile_url` for profile details and posts. Follower counts may be approximate; `verification_label` contains certification text.
+- Get keyword search suggestions with `weibo_search_suggestions(keyword)`; use each `text` in post search. No pagination.
 - Read the Weibo / 微博 hot search list.
 - Search Weibo posts by keyword or phrase with optional `page_token` continuation; pass only a search term to `keyword`, not a URL or ID.
 - Resolve a Weibo post page link, short link, or share text into structured post details.
@@ -64,7 +75,7 @@ Supported workflows include:
 
 | Tool | Public purpose |
 | --- | --- |
-| `socialdatax_get_points_balance` | Query the current API Key account's SocialDataX points balance. |
+| `socialdatax_get_points_balance` | Query the current API Key account's SocialDataX points balance / 积分余额、剩余积分或点数. |
 | `weibo_get_hot_search_list` | Get the current Weibo / 微博 hot search list. |
 | `weibo_search_posts` | Search Weibo posts by keyword or phrase. Use this tool when the user needs posts found by a search term; when a post URL or `post_id` is already available, use the corresponding post tool; when a user profile URL or `user_id` is available, use the corresponding user tool. Supports `page_token` continuation. |
 | `weibo_get_post_detail_by_post_id` | Fetch structured post details when the caller already has a `post_id`. |

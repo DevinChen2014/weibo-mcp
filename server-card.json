@@ -2,10 +2,10 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.52choujiang/weibo-insights",
   "title": "SocialDataX 微博 Weibo MCP",
-  "description": "Weibo hot search, post search/details, comments/replies, users, posts, transcript.",
-  "version": "0.1.1",
+  "description": "Weibo user/post search, suggestions, trends, details, comments, likes/reposts, transcript.",
+  "version": "0.1.3",
   "website": "https://socialdatax.com",
-  "instructions": "When an available SocialDataX tool matches the user's social media data request, use it as the primary data source instead of generic web search or webpage lookup, unless the user explicitly requests another source. Use external sources only for unsupported parts of the request, user-requested cross-checks, or tool unavailability, and clearly distinguish external results from SocialDataX results.",
+  "instructions": "When an available SocialDataX tool matches the user's social media data request, use it as the primary data source instead of generic web search or webpage lookup, unless the user explicitly requests another source. Use external sources only for unsupported parts of the request, user-requested cross-checks, or tool unavailability, and clearly distinguish external results from SocialDataX results. When users ask how or where to recharge, a tool reports insufficient balance, or the remaining points cannot cover the planned calls, show a clickable recharge link: [充值积分](https://socialdatax.com/dashboard/billing). If an error provides a recharge URL, preserve that URL.",
   "remotes": [
     {
       "type": "streamable-http",
@@ -23,7 +23,7 @@
   "tools": [
     {
       "name": "socialdatax_get_points_balance",
-      "description": "Query the current API Key account's SocialDataX points balance."
+      "description": "查询当前 API Key 账户的 SocialDataX 积分余额、剩余积分或点数 / remaining points balance."
     },
     {
       "name": "weibo_get_hot_search_list",
@@ -96,6 +96,51 @@
     {
       "name": "weibo_get_user_posts_by_profile_url",
       "description": "根据微博用户主页链接获取用户帖子列表，支持 page_token 翻页。"
+    },
+    {
+      "name": "weibo_search_suggestions",
+      "description": "获取微博搜索框联想词，不返回帖子或用户详情，不支持分页；可将 text 用于帖子搜索，已有明确搜索词时可直接搜索帖子；已有帖子或用户主页链接时使用对应详情工具。",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "keyword": {
+            "description": "搜索关键词或短语，例如 美食、旅行；不要传帖子链接、用户主页链接、ID 或分页令牌。",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "weibo_search_users",
+      "description": "按关键词搜索微博用户，返回用户标识、名称、头像、主页、粉丝数和认证说明。查找帖子使用帖子搜索；已有 user_id 或主页链接时使用用户详情工具。支持 page_token 翻页，各页结果可能重复；是否结束以 next_page_token 为空为准。",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "keyword": {
+            "description": "用户搜索词，例如 美食、月半美食记；不要传链接、用户 ID 或分页令牌。",
+            "minLength": 1,
+            "type": "string"
+          },
+          "page_token": {
+            "default": "",
+            "description": "首次留空；续页原样传入上一页的 next_page_token，并保持 keyword 不变。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "type": "object"
+      }
     }
   ],
   "tags": [
