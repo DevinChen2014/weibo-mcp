@@ -13,10 +13,10 @@ The business implementation is privately hosted. This repository exposes only th
 <!-- release-status:start -->
 ## Recorded release status
 
-- Local metadata: `0.1.3` with 21 tracked tools. Local metadata alone does not establish publication.
-- Hosted production: `0.1.3` with 21 tools; recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
-- Official MCP Registry: `0.1.3` (`active`); recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
-- Registry evidence: [version-specific Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/com.52choujiang%2Fweibo-insights/versions/0.1.3).
+- Local metadata: `0.1.5` with 22 tracked tools. Local metadata alone does not establish publication.
+- Hosted production: `0.1.5` with 22 tools; recorded verification on `2026-10-16 18:07` (Asia/Shanghai).
+- Official MCP Registry: `0.1.5` (`active`); recorded verification on `2026-10-16 18:07` (Asia/Shanghai).
+- Registry evidence: [version-specific Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/com.52choujiang%2Fweibo-insights/versions/0.1.5).
 - These are recorded observations, not a fresh live check. Public GitHub, npm, and other distribution channels require their own verification.
 <!-- release-status:end -->
 
@@ -60,6 +60,7 @@ Supported workflows include:
 - Query the current API Key account's SocialDataX points balance / 积分余额、剩余积分或点数.
 - Search users with `weibo_search_users(keyword, page_token)`; reuse `user_id` or `profile_url` for profile details and posts. Follower counts may be approximate; `verification_label` contains certification text.
 - Get keyword search suggestions with `weibo_search_suggestions(keyword)`; use each `text` in post search. No pagination.
+- Get search-box user suggestions with `weibo_search_user_suggestions(keyword)`. Returns a few candidate accounts with IDs, names, avatars, profile links, bios, follower counts, verification details, locations and a required boolean `is_live`; no pagination or guarantee of finding a particular account. `is_live` is true while the account is broadcasting and false when it is not, including a scheduled broadcast that has not started. Missing or unrecognized upstream status produces an error.
 - Read the Weibo / 微博 hot search list.
 - Search Weibo posts by keyword or phrase with optional `page_token` continuation; pass only a search term to `keyword`, not a URL or ID.
 - Resolve a Weibo post page link, short link, or share text into structured post details.
@@ -78,6 +79,7 @@ Supported workflows include:
 | `socialdatax_get_points_balance` | Query the current API Key account's SocialDataX points balance / 积分余额、剩余积分或点数. |
 | `weibo_get_hot_search_list` | Get the current Weibo / 微博 hot search list. |
 | `weibo_search_suggestions` | Get keyword search suggestions. Returns suggested text, not posts or user details; no pagination. |
+| `weibo_search_user_suggestions` | Get a few search-box user suggestions with profile details and a boolean `is_live`. No pagination; use user search for paginated results or user details for a known ID or profile URL. |
 | `weibo_search_users` | Search users by keyword with `page_token` continuation. When a user ID or profile URL is already available, use the corresponding user profile tool. |
 | `weibo_search_posts` | Search Weibo posts by keyword or phrase. Use this tool when the user needs posts found by a search term; when a post URL or `post_id` is already available, use the corresponding post tool; when a user profile URL or `user_id` is available, use the corresponding user tool. Supports `page_token` continuation. |
 | `weibo_get_post_detail_by_post_id` | Fetch structured post details when the caller already has a `post_id`. |

@@ -5,10 +5,10 @@ Use this checklist before syncing this listing to the public Weibo MCP repositor
 <!-- release-status:start -->
 ## Recorded release status
 
-- Local metadata: `0.1.3` with 21 tracked tools. Local metadata alone does not establish publication.
-- Hosted production: `0.1.3` with 21 tools; recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
-- Official MCP Registry: `0.1.3` (`active`); recorded verification on `2026-10-09 09:06` (Asia/Shanghai).
-- Registry evidence: [version-specific Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/com.52choujiang%2Fweibo-insights/versions/0.1.3).
+- Local metadata: `0.1.5` with 22 tracked tools. Local metadata alone does not establish publication.
+- Hosted production: `0.1.5` with 22 tools; recorded verification on `2026-10-16 18:07` (Asia/Shanghai).
+- Official MCP Registry: `0.1.5` (`active`); recorded verification on `2026-10-16 18:07` (Asia/Shanghai).
+- Registry evidence: [version-specific Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/com.52choujiang%2Fweibo-insights/versions/0.1.5).
 - These are recorded observations, not a fresh live check. Public GitHub, npm, and other distribution channels require their own verification.
 <!-- release-status:end -->
 
@@ -59,6 +59,7 @@ Use this checklist before syncing this listing to the public Weibo MCP repositor
 - Hosted streamable HTTP clients can connect directly to `https://mcp.socialdatax.com/weibo/mcp` with `Authorization: Bearer <SOCIALDATAX_API_KEY>`.
 - With a valid key, hosted MCP `initialize` succeeds.
 - After deployment, verify normal/empty suggestions, invalid arguments, and charging through HTTP and MCP.
+- Before publishing the user-suggestions candidate, verify `weibo_search_user_suggestions` through HTTP and MCP, including live and scheduled candidates, empty results, missing or unrecognized live status errors, invalid arguments and charging. Confirm that `is_live` is a required boolean. This capability returns a few search-box candidates and does not guarantee finding a specific account.
 - `socialdatax_get_points_balance` is present in `tools/list`.
 - `weibo_get_hot_search_list` is present in `tools/list`; if it is missing, deploy the latest service before publishing.
 - `weibo_get_post_liker_list_by_post_url` and `weibo_get_post_repost_list_by_post_url` are present in `tools/list`; if either is missing, deploy the latest service before publishing.
